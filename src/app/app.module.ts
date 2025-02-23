@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';  // ✅ Importa AppRoutingModule
-
+import { AppRoutingModule } from './app-routing.module';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { environment } from '../environments/enviroment';  // ✅ Verificar la ruta
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { environment } from '../environments/enviroment';  // ✅ Verificar la ruta
+import { InvoicesModule } from './modules/invoices/invoices.module'; // ✅ Ruta correcta
 
 @NgModule({
-  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,  // ✅ Importa las rutas principales aquí
+    AppRoutingModule,  // ✅ Rutas principales
+    InvoicesModule,    // ✅ Módulo de facturas con rutas hijas
+    AppComponent,      // ✅ Importa el componente standalone
+  
+    BrowserModule,
+    AppRoutingModule,  // ✅ Rutas principales
+    InvoicesModule,    // ✅ Módulo de facturas con rutas hijas
   ],
   providers: [
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),  // ✅ Inicializa Firebase
-    provideAuth(() => getAuth()),                                         // ✅ Provee autenticación
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), // ✅ Inicializa Firebase
+    provideAuth(() => getAuth()),  // ✅ Autenticación Firebase
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}

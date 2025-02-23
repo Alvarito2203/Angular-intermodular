@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <h2 class="text-center">Lista de Facturas</h2>
+
+  <div class="d-flex justify-content-center gap-3 mb-4">
+    <button class="btn btn-primary" (click)="showAllInvoices()">Todas</button>
+    <button class="btn btn-success" (click)="showIssuedInvoices()">Emitidas</button>
+    <button class="btn btn-warning" (click)="showReceivedInvoices()">Recibidas</button>
+  </div>
+
+  <button routerLink="/invoices/add" class="btn btn-secondary mb-3">Agregar Factura</button>
+
+  <div *ngFor="let invoice of filteredInvoices" class="card mb-3 p-3">
+    <p><strong>ID:</strong> {{ invoice.id }}</p>
+    <p><strong>Fecha:</strong> {{ invoice.fecha }}</p>
+    <p><strong>Total:</strong> {{ invoice.total }} €</p>
+    <p><strong>Tipo:</strong> {{ invoice.tipo }}</p>
+    <div class="d-flex gap-2">
+      <button class="btn btn-warning me-2" (click)="editInvoice(invoice.id)">Editar</button>
+      <button class="btn btn-danger" (click)="deleteInvoice(invoice.id)">Eliminar</button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredInvoices.length === 0" class="text-center">
+    <p>No hay facturas para mostrar.</p>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <h2 class="text-center">Agregar Nueva Factura</h2>
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" class="form-control" formControlName="fecha" />
+      </div>
+      <div class="form-group">
+        <label>Emisor</label>
+        <input type="text" class="form-control" formControlName="emisor" />
+      </div>
+      <div class="form-group">
+        <label>Receptor</label>
+        <input type="text" class="form-control" formControlName="receptor" />
+      </div>
+      <div class="form-group">
+        <label>Base Imponible</label>
+        <input type="number" class="form-control" formControlName="baseImponible" />
+      </div>
+      <div class="form-group">
+        <label>IVA (%)</label>
+        <select class="form-control" formControlName="iva">
+          <option [value]="21">21%</option>
+          <option [value]="10">10%</option>
+          <option [value]="4">4%</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tipo</label>
+        <select class="form-control" formControlName="tipo">
+          <option value="emitida">Emitida</option>
+          <option value="recibida">Recibida</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success w-100 mt-4">Agregar Factura</button>
+    </form>
+  </div>
+  

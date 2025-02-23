@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { collection, addDoc, Firestore, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class InvoiceService {
   constructor(private firestore: Firestore) {}
 
-  addInvoice(invoice: any) {
-    const invoiceRef = collection(this.firestore, 'facturas');
-    return addDoc(invoiceRef, invoice);
+  getAllInvoices(): Observable<any[]> {
+    const invoicesRef = collection(this.firestore, 'facturas');
+    return collectionData(invoicesRef, { idField: 'id' });
   }
 
-  getInvoices() {
-    const invoiceRef = collection(this.firestore, 'facturas');
-    return getDocs(invoiceRef);
+  getIssuedInvoices(): Observable<any[]> {
+    const invoicesRef = collection(this.firestore, 'facturas_emitidas');
+    return collectionData(invoicesRef, { idField: 'id' });
   }
 
-  updateInvoice(id: string, data: any) {
-    const invoiceDoc = doc(this.firestore, `facturas/${id}`);
-    return updateDoc(invoiceDoc, data);
+  getReceivedInvoices(): Observable<any[]> {
+    const invoicesRef = collection(this.firestore, 'facturas_recibidas');
+    return collectionData(invoicesRef, { idField: 'id' });
   }
 
-  deleteInvoice(id: string) {
-    const invoiceDoc = doc(this.firestore, `facturas/${id}`);
+  // ✅ Método para agregar una nueva factura
+  addInvoice(collectionName: string, invoice: any) {
+    const invoicesRef = collection(this.firestore, collectionName);
+    return addDoc(invoicesRef, invoice);
+  }
+
+  deleteInvoice(collectionName: string, id: string) {
+    const invoiceDoc = doc(this.firestore, `${collectionName}/${id}`);
     return deleteDoc(invoiceDoc);
   }
 }
