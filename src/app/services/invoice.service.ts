@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection, addDoc, Firestore, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,13 @@ export class InvoiceService {
   constructor(private firestore: Firestore) {}
 
   getAllInvoices(): Observable<any[]> {
-    const invoicesRef = collection(this.firestore, 'facturas');
-    return collectionData(invoicesRef, { idField: 'id' });
+    const issuedInvoicesRef = collection(this.firestore, 'facturas_emitidas');
+    const receivedInvoicesRef = collection(this.firestore, 'facturas_recibidas');
+    const issuedInvoices$ = collectionData(issuedInvoicesRef, { idField: 'id' });
+    const receivedInvoices$ = collectionData(receivedInvoicesRef, { idField: 'id' });
+    return combineLatest([issuedInvoices$, receivedInvoices$]).pipe(
+      map(([issued, received]) => [...issued, ...received])
+    );
   }
 
   getIssuedInvoices(): Observable<any[]> {
@@ -34,3 +40,7 @@ export class InvoiceService {
     return deleteDoc(invoiceDoc);
   }
 }
+function combineLatestLocal(arg0: Observable<(import("@firebase/firestore").DocumentData | (import("@firebase/firestore").DocumentData & { id: string; }))[]>[]) {
+  throw new Error('Function not implemented.');
+}
+
