@@ -8,7 +8,10 @@
   </div>
 
   <div class="text-start mb-4">
-    <button routerLink="/invoices/add" class="btn btn-secondary">➕ Agregar Factura</button>
+    <button (click)="goToAddInvoice()" class="btn btn-secondary">
+      ➕ Agregar Factura
+    </button>
+    
   </div>
 
   <div *ngIf="filteredInvoices.length > 0; else noInvoices">
@@ -26,7 +29,11 @@
 
       <div class="d-flex justify-content-between mt-3">
         <button class="btn btn-warning me-2" (click)="editInvoice(invoice.id)">✏️ Editar</button>
-        <button class="btn btn-danger" (click)="deleteInvoice(invoice.id)">🗑️ Eliminar</button>
+        <button (click)="deleteInvoice(invoice.id, invoice.tipo)" class="btn btn-danger">
+          🗑️ Eliminar
+        </button>
+        
+        
       </div>
     </div>
   </div>

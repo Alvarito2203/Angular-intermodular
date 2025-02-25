@@ -18,13 +18,15 @@
         <input type="number" class="form-control" formControlName="baseImponible" />
       </div>
       <div class="form-group">
-        <label>IVA (%)</label>
-        <select class="form-control" formControlName="iva">
-          <option [value]="21">21%</option>
-          <option [value]="10">10%</option>
-          <option [value]="4">4%</option>
+        <label for="iva">IVA (%)</label>
+        <select id="iva" class="form-control" formControlName="iva">
+          <option value="0">0%</option>
+          <option value="4">4%</option>
+          <option value="10">10%</option>
+          <option value="21">21%</option>
         </select>
       </div>
+      
       <div class="form-group">
         <label>Tipo</label>
         <select class="form-control" formControlName="tipo">

@@ -18,7 +18,10 @@ export class InvoiceService {
       map(([issued, received]) => [...issued, ...received])
     );
   }
+  
 
+
+  
   getIssuedInvoices(): Observable<any[]> {
     const invoicesRef = collection(this.firestore, 'facturas_emitidas');
     return collectionData(invoicesRef, { idField: 'id' });
@@ -35,12 +38,19 @@ export class InvoiceService {
     return addDoc(invoicesRef, invoice);
   }
 
-  deleteInvoice(collectionName: string, id: string) {
-    const invoiceDoc = doc(this.firestore, `${collectionName}/${id}`);
-    return deleteDoc(invoiceDoc);
+  deleteInvoice(invoiceId: string, invoiceType: string): Promise<void> {
+    // Determina la colección correcta
+    const collectionName = invoiceType === 'emitida' ? 'facturas_emitidas' : 'facturas_recibidas';
+
+    // Referencia al documento correcto en la colección adecuada
+    const invoiceDocRef = doc(this.firestore, `${collectionName}/${invoiceId}`);
+
+    // Elimina el documento de Firebase
+    return deleteDoc(invoiceDocRef);
   }
 }
 function combineLatestLocal(arg0: Observable<(import("@firebase/firestore").DocumentData | (import("@firebase/firestore").DocumentData & { id: string; }))[]>[]) {
   throw new Error('Function not implemented.');
 }
+
 

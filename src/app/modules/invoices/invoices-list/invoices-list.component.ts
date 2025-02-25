@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ✅ Importar CommonModule
 import { InvoiceService } from '../../../services/invoice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoices-list',
@@ -12,12 +13,12 @@ import { InvoiceService } from '../../../services/invoice.service';
 export class InvoicesListComponent implements OnInit {
   invoices: any[] = [];
   filteredInvoices: any[] = [];
-
-  constructor(private invoiceService: InvoiceService) {}
+  constructor(private invoiceService: InvoiceService, @Inject(Router) private router: Router) {}  // ✅ Inyecta Router en el constructor
+  
 
   ngOnInit(): void {
     this.showAllInvoices();
-  }
+  } 
 
   showAllInvoices() {
     this.invoiceService.getAllInvoices().subscribe((invoices) => {
@@ -37,15 +38,24 @@ export class InvoicesListComponent implements OnInit {
     });
   }
 
-  editInvoice(id: string) {
-    console.log('Editar factura con ID:', id);
-  }
-
-  deleteInvoice(id: string) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta factura?')) {
-      this.invoiceService.deleteInvoice('facturas', id).then(() => {
-        this.filteredInvoices = this.filteredInvoices.filter(invoice => invoice.id !== id);
-      });
+    editInvoice(id: string) {
+      console.log('Editar factura con ID:', id);
     }
+
+  
+  deleteInvoice(invoiceId: string, invoiceType: string): void {
+    if (confirm('¿Estás seguro de que quieres eliminar esta factura?')) {
+      this.invoiceService.deleteInvoice(invoiceId, invoiceType)
+        .then(() => {
+          // Actualiza visualmente la lista de facturas
+          this.invoices = this.invoices.filter(invoice => invoice.id !== invoiceId);
+          console.log('Factura eliminada correctamente.');
+        })
+        .catch(error => console.error('Error al eliminar la factura:', error));
+    }
+  }
+  
+  goToAddInvoice() {
+    this.router.navigate(['/invoices/add']);  // ✅ Navegación correcta
   }
 }
