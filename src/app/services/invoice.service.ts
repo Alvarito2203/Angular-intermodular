@@ -20,12 +20,10 @@ export class InvoiceService {
     );
   }
   
-  updateInvoice(id: string, data: any): Promise<void> {
-    let docRef = doc(this.firestore, `facturas_emitidas/${id}`);
-    if (!docRef) {
-      docRef = doc(this.firestore, `facturas_recibidas/${id}`);
-    }
-    return updateDoc(docRef, data);
+  updateInvoice(id: string, updatedData: any): Promise<void> {
+    const collectionName = updatedData.tipo === 'emitida' ? 'facturas_emitidas' : 'facturas_recibidas';
+    const invoiceRef = doc(this.firestore, `${collectionName}/${id}`);
+    return updateDoc(invoiceRef, updatedData);
   }
   
   getIssuedInvoices(): Observable<any[]> {

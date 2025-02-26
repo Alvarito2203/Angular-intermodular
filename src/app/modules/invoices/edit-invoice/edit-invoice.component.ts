@@ -8,76 +8,78 @@ import { CommonModule } from '@angular/common';
   selector: 'app-edit-invoice',
   templateUrl: './edit-invoice.component.html',
   styleUrls: ['./edit-invoice.component.scss'],
-  standalone: true,
-imports: [CommonModule, ReactiveFormsModule]
+   standalone: true,
+    imports: [CommonModule, ReactiveFormsModule],
 })
 export class EditInvoiceComponent implements OnInit {
-  invoiceForm: FormGroup;
+  invoiceForm!: FormGroup;
   invoiceId!: string;
-  invoiceType!: string;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private invoiceService: InvoiceService
-  ) {
-    this.invoiceForm = this.fb.group({
-      fecha: [null, Validators.required],
-      emisor: ['', [Validators.required, Validators.minLength(2)]],
-      receptor: ['', [Validators.required, Validators.minLength(2)]],
-      baseImponible: [null, [Validators.required, Validators.min(0)]],
-      iva: [21, Validators.required],
-      tipo: ['emitida', Validators.required],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.invoiceId = this.route.snapshot.paramMap.get('id')!;
-    this.invoiceType = this.route.snapshot.paramMap.get('type')!;
+    this.initForm();
+    this.loadInvoice();
+    this.invoiceForm.valueChanges.subscribe(() => this.recalculateTotal());
+  }
 
-    this.invoiceService.getAllInvoices().subscribe((invoices) => {
+  initForm(): void {
+    this.invoiceForm = this.fb.group({
+      fecha: ['', Validators.required],
+      emisor: ['', [Validators.required, Validators.minLength(2)]],
+      receptor: ['', [Validators.required, Validators.minLength(2)]],
+      baseImponible: [0, [Validators.required, Validators.min(0)]],
+      iva: [21, Validators.required],
+      tipo: ['emitida', Validators.required],
+      total: [{ value: 0, disabled: true }] // Mostrar total en tiempo real
+    });
+  }
+
+  loadInvoice(): void {
+    this.invoiceService.getAllInvoices().subscribe((invoices: any[]) => {
       const invoice = invoices.find(inv => inv.id === this.invoiceId);
       if (invoice) {
-        this.invoiceForm.patchValue({
-          fecha: invoice.fecha,
-          emisor: invoice.emisor,
-          receptor: invoice.receptor,
-          baseImponible: invoice.baseImponible,
-          iva: invoice.iva * 100,  // Convertir IVA decimal a porcentaje
-          tipo: invoice.tipo,
-        });
+        this.invoiceForm.patchValue(invoice);
+        this.recalculateTotal();  // Calcular total al cargar datos
+      } else {
+        alert('Factura no encontrada.');
+        this.router.navigate(['/invoices']);
       }
     });
   }
 
-  onSubmit() {
+  recalculateTotal(): void {
+    const { baseImponible, iva, tipo } = this.invoiceForm.value;
+    const ivaDecimal = Number(iva) / 100;
+    let total = 0;
+
+    if (tipo === 'emitida') {
+      total = baseImponible + baseImponible * ivaDecimal; // Para emitidas
+    } else if (tipo === 'recibida') {
+      total = baseImponible - baseImponible * ivaDecimal; // Para recibidas
+    }
+
+    this.invoiceForm.patchValue({ total: parseFloat(total.toFixed(2)) }, { emitEvent: false });
+  }
+
+  onSubmit(): void {
     if (this.invoiceForm.valid) {
-      const formData = this.invoiceForm.value;
-      const ivaDecimal = Number(formData.iva) / 100;
-      const total = formData.baseImponible + formData.baseImponible * ivaDecimal;
-
-      const updatedInvoice = {
-        fecha: formData.fecha,
-        emisor: formData.emisor,
-        receptor: formData.receptor,
-        baseImponible: formData.baseImponible,
-        iva: ivaDecimal,
-        tipo: formData.tipo.toLowerCase(),
-        total: parseFloat(total.toFixed(2)),
-      };
-
-      this.invoiceService.updateInvoice(this.invoiceId, updatedInvoice).then(() => {
+      const updatedData = { ...this.invoiceForm.getRawValue() };
+      this.invoiceService.updateInvoice(this.invoiceId, updatedData).then(() => {
         alert('✅ Factura actualizada correctamente.');
         this.router.navigate(['/invoices']);
       }).catch((error) => {
         console.error('❌ Error al actualizar factura:', error);
-        alert('Ocurrió un error al actualizar la factura.');
       });
     } else {
       alert('⚠️ Completa todos los campos correctamente.');
     }
   }
 }
-
 
