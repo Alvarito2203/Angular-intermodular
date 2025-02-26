@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ✅ Importar CommonModule
 import { InvoiceService } from '../../../services/invoice.service';
 import { Router } from '@angular/router';
+import { getAuth, signOut } from 'firebase/auth';
 
 @Component({
   selector: 'app-invoices-list',
@@ -43,7 +44,16 @@ export class InvoicesListComponent implements OnInit {
     });
   }
 
- 
+  logout() {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      alert('Sesión cerrada correctamente.');
+      this.router.navigate(['/auth/login']);
+    }).catch((error) => {
+      console.error('Error al cerrar sesión:', error);
+      alert('Ocurrió un error al cerrar sesión.');
+    });
+  }
   
 
   
