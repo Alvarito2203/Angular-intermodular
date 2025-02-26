@@ -58,6 +58,20 @@ export class InvoicesListComponent implements OnInit {
         .catch(error => console.error('Error al eliminar la factura:', error));
     }
   }
+  refreshInvoices(): void {
+    this.loadInvoices();  // Vuelve a cargar las facturas desde Firebase
+    this.showSuccessMessage();  // Muestra el mensaje de éxito
+  }
+  showSuccessMessage(): void {
+    alert('Facturas actualizadas correctamente.');
+  }
+  
+  loadInvoices(): void {
+    this.invoiceService.getAllInvoices().subscribe((invoices) => {
+      this.invoices = invoices;
+    });
+  }
+  
   
   goToAddInvoice() {
     this.router.navigate(['/invoices/add']);  // ✅ Navegación correcta
