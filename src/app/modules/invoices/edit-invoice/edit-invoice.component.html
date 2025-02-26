@@ -1,1 +1,49 @@
-<p>edit-invoice works!</p>
+<div class="edit-invoice-container">
+    <div class="card">
+      <h2 class="title">✏️ Editar Factura</h2>
+  
+      <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="form">
+        
+        <div class="form-group">
+          <label>📅 Fecha</label>
+          <input type="date" formControlName="fecha" />
+        </div>
+  
+        <div class="form-group">
+          <label>🏢 Emisor</label>
+          <input type="text" placeholder="Ingrese el emisor" formControlName="emisor" />
+        </div>
+  
+        <div class="form-group">
+          <label>📥 Receptor</label>
+          <input type="text" placeholder="Ingrese el receptor" formControlName="receptor" />
+        </div>
+  
+        <div class="form-group">
+          <label>💵 Base Imponible (€)</label>
+          <input type="number" placeholder="Ej: 100" formControlName="baseImponible" />
+        </div>
+  
+        <div class="form-group">
+          <label>📈 IVA (%)</label>
+          <select formControlName="iva">
+            <option value="0">0%</option>
+            <option value="4">4%</option>
+            <option value="10">10%</option>
+            <option value="21">21%</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>📝 Tipo</label>
+          <select formControlName="tipo">
+            <option value="emitida">Emitida</option>
+            <option value="recibida">Recibida</option>
+          </select>
+        </div>
+  
+        <button class="save-btn" type="submit">💾 Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  

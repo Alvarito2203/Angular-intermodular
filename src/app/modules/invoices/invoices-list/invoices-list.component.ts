@@ -37,10 +37,16 @@ export class InvoicesListComponent implements OnInit {
       this.filteredInvoices = invoices;
     });
   }
+  getInvoices() {
+    this.invoiceService.getAllInvoices().subscribe((invoices) => {
+      this.filteredInvoices = invoices;
+    });
+  }
 
-    editInvoice(id: string) {
-      console.log('Editar factura con ID:', id);
-    }
+ 
+  editInvoice(invoice: any) {
+    this.router.navigate(['/invoices/edit', invoice.id]);
+  }
 
   
   deleteInvoice(invoiceId: string, invoiceType: string): void {
@@ -58,4 +64,8 @@ export class InvoicesListComponent implements OnInit {
   goToAddInvoice() {
     this.router.navigate(['/invoices/add']);  // ✅ Navegación correcta
   }
+  goToEditInvoice(invoice: any) {
+    this.router.navigate(['/invoices/edit', invoice.id]);  // Usa el id generado por Firebase
+  }
+  
 }

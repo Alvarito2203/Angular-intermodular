@@ -28,7 +28,8 @@
       </span></p>
 
       <div class="d-flex justify-content-between mt-3">
-        <button class="btn btn-warning me-2" (click)="editInvoice(invoice.id)">✏️ Editar</button>
+        <button class="btn btn-warning" (click)="editInvoice(invoice)">✏️ Editar</button>
+
         <button (click)="deleteInvoice(invoice.id, invoice.tipo)" class="btn btn-danger">
           🗑️ Eliminar
         </button>

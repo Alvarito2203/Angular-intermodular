@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { collection, addDoc, Firestore, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { updateDoc } from '@firebase/firestore';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -19,8 +20,13 @@ export class InvoiceService {
     );
   }
   
-
-
+  updateInvoice(id: string, data: any): Promise<void> {
+    let docRef = doc(this.firestore, `facturas_emitidas/${id}`);
+    if (!docRef) {
+      docRef = doc(this.firestore, `facturas_recibidas/${id}`);
+    }
+    return updateDoc(docRef, data);
+  }
   
   getIssuedInvoices(): Observable<any[]> {
     const invoicesRef = collection(this.firestore, 'facturas_emitidas');
