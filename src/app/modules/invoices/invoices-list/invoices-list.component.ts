@@ -44,9 +44,7 @@ export class InvoicesListComponent implements OnInit {
   }
 
  
-  editInvoice(invoice: any) {
-    this.router.navigate(['/invoices/edit', invoice.id]);
-  }
+  
 
   
   deleteInvoice(invoiceId: string, invoiceType: string): void {
