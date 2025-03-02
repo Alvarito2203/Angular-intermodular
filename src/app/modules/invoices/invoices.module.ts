@@ -7,6 +7,7 @@ import { AddInvoiceComponent } from './add-invoice/add-invoice.component';
 import { RouterModule } from '@angular/router';
 import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddInvoiceComponent,
     EditInvoiceComponent,
       FormsModule,
+      InvoiceDetailComponent,
+      
   
     CommonModule,           // ✅ Necesario para directivas como *ngFor y *ngIf
     // ✅ Para formularios reactivos

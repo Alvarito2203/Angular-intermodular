@@ -37,4 +37,12 @@ export class AuthService {
     alert('Sesión cerrada.');
     this.router.navigate(['/login']);
   }
+  // 🔍 Método para verificar si hay usuario autenticado
+  isAuthenticated(): boolean {
+    return this.auth.currentUser !== null;  // ✅ Verificar si el usuario está autenticado
+  }
+  
+  
+  
+
 }

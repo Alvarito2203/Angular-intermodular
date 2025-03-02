@@ -4,6 +4,7 @@ import { RegisterComponent } from './modules/auth/register/register.component';
 import { InvoicesListComponent } from './modules/invoices/invoices-list/invoices-list.component';
 import { AddInvoiceComponent } from './modules/invoices/add-invoice/add-invoice.component';
 import { EditInvoiceComponent } from './modules/invoices/edit-invoice/edit-invoice.component';
+import { InvoiceDetailComponent } from './modules/invoices/invoice-detail/invoice-detail.component';
 
 
 
@@ -14,6 +15,8 @@ export const routes: Routes = [
   { path: 'invoices', component: InvoicesListComponent },
   { path: 'invoices/add', component: AddInvoiceComponent },
   { path: 'invoices/edit/:id', component: EditInvoiceComponent },
+  { path: 'invoices/detail/:id', component: InvoiceDetailComponent },
+   
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },

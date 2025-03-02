@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc, Firestore, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
-import { updateDoc } from '@firebase/firestore';
+import { collection, addDoc, Firestore, collectionData, deleteDoc, doc, docData } from '@angular/fire/firestore';
+import { getDoc, updateDoc } from '@firebase/firestore';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -52,7 +52,24 @@ export class InvoiceService {
     // Elimina el documento de Firebase
     return deleteDoc(invoiceDocRef);
   }
+  
+
+  getInvoiceById(tipo: string, id: string): Observable<any> {
+    if (!tipo || !id) {
+      console.error("⚠️ Error: Tipo o ID no proporcionados.");
+      return new Observable();
+    }
+
+    const collectionName = tipo === 'emitida' ? 'facturas_emitidas' : 'facturas_recibidas';
+    const invoiceDocRef = doc(this.firestore, `${collectionName}/${id}`);
+
+    console.log(`📌 Buscando factura en Firestore: ${collectionName}/${id}`);
+    
+    return docData(invoiceDocRef);
+  }
+  
 }
+
 function combineLatestLocal(arg0: Observable<(import("@firebase/firestore").DocumentData | (import("@firebase/firestore").DocumentData & { id: string; }))[]>[]) {
   throw new Error('Function not implemented.');
 }

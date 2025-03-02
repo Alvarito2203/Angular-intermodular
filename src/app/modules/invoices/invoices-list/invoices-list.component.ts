@@ -1,20 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ✅ Importar CommonModule
 import { InvoiceService } from '../../../services/invoice.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { getAuth, signOut } from 'firebase/auth';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-invoices-list',
   templateUrl: './invoices-list.component.html',
   styleUrls: ['./invoices-list.component.scss'],
   standalone: true,
-  imports: [CommonModule], // ✅ Necesario para *ngFor y *ngIf
+  imports: [CommonModule, RouterModule], // ✅ Necesario para *ngFor y *ngIf
 })
 export class InvoicesListComponent implements OnInit {
   invoices: any[] = [];
   filteredInvoices: any[] = [];
-  constructor(private invoiceService: InvoiceService, @Inject(Router) private router: Router) {}  // ✅ Inyecta Router en el constructor
+  constructor(private invoiceService: InvoiceService, @Inject(Router) private router: Router, @Inject(AuthService) private authService: AuthService ) {}  // ✅ Inyecta Router en el constructor
   
 
   ngOnInit(): void {
@@ -89,5 +90,20 @@ export class InvoicesListComponent implements OnInit {
   goToEditInvoice(invoice: any) {
     this.router.navigate(['/invoices/edit', invoice.id]);  // Usa el id generado por Firebase
   }
+  goToDetail(invoice: any) {
+    if (!invoice || !invoice.id || !invoice.tipo) {
+      console.error("❌ Error: El tipo de factura no está definido");
+      return;
+    }
+  
+    console.log(`Factura seleccionada: ${invoice.id} Tipo: ${invoice.tipo}`);
+  
+    this.router.navigate([`/invoices/detail/${invoice.id}`], { queryParams: { tipo: invoice.tipo } });
+  }
+  
+  
+  
+  
+  
   
 }

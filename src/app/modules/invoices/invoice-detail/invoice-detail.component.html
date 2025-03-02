@@ -1,0 +1,29 @@
+<div class="invoice-container">
+  <!-- Cargando datos -->
+  <div *ngIf="loading" class="loading">
+    <p>⌛ Cargando datos de la factura...</p>
+  </div>
+
+  <!-- Datos de la Factura -->
+  <div *ngIf="!loading && invoiceData" class="invoice-card">
+    <h2 class="invoice-title">📜 Detalles de la Factura</h2>
+    <div class="invoice-details">
+      <p><span>ID:</span> {{ invoiceData.id }}</p>
+      <p><span>Fecha:</span> {{ invoiceData.fecha }}</p>
+      <p><span>Emisor:</span> {{ invoiceData.emisor }}</p>
+      <p><span>Receptor:</span> {{ invoiceData.receptor }}</p>
+      <p><span>Base Imponible:</span> {{ invoiceData.baseImponible }} €</p>
+      <p><span>IVA:</span> {{ invoiceData.iva }} %</p>
+      <p><span>Total:</span> {{ invoiceData.total }} €</p>
+      <p><span>Tipo:</span> {{ invoiceData.tipo }}</p>
+    </div>
+
+    <!-- Botón de Volver -->
+    <button class="btn-back" (click)="goBack()">⬅ Volver</button>
+  </div>
+
+  <!-- Mensaje si no se encuentra la factura -->
+  <div *ngIf="!loading && !invoiceData" class="error-message">
+    <p>❌ No se encontró la factura.</p>
+  </div>
+</div>

@@ -26,11 +26,20 @@
       [ngClass]="{ 'invoice-issued': invoice.tipo === 'emitida', 'invoice-received': invoice.tipo === 'recibida' }"
       class="invoice-card"
     >
+    <button (click)="goToDetail(invoice)">📄 Ver Detalles</button>
+
+
+
+
+ 
+    
       <p><strong>🆔 ID:</strong> {{ invoice.id }}</p>
       <p><strong>📅 Fecha:</strong> {{ invoice.fecha }}</p>
       <p><strong>💵 Total:</strong> {{ invoice.total }} €</p>
       <p><strong>📄 Tipo:</strong> <span class="badge" [ngClass]="{ 'badge-emitida': invoice.tipo === 'emitida', 'badge-recibida': invoice.tipo === 'recibida' }">
         {{ invoice.tipo | titlecase }}
+
+      
       </span></p>
 
       <div class="d-flex justify-content-between mt-3">
