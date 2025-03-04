@@ -1,55 +1,43 @@
 <div class="container mt-5">
   <h2 class="text-center mb-4">📄 Lista de Facturas</h2>
 
+  <!-- Botones de Filtro -->
   <div class="d-flex justify-content-center gap-3 mb-4">
-    <button class="btn btn-primary" (click)="showAllInvoices()">Todas</button>
-    <button class="btn btn-success" (click)="showIssuedInvoices()">Emitidas</button>
-    <button class="btn btn-warning" (click)="showReceivedInvoices()">Recibidas</button>
+    <button class="btn btn-todas" (click)="showAllInvoices()">Todas</button>
+    <button class="btn btn-emitidas" (click)="showIssuedInvoices()">Emitidas</button>
+    <button class="btn btn-recibidas" (click)="showReceivedInvoices()">Recibidas</button>
   </div>
 
-  <div class="text-start mb-4">
-    <button (click)="goToAddInvoice()" class="btn btn-secondary">
-      ➕ Agregar Factura
-    </button>
-  </div>
+  <!-- Botones principales alineados -->
   <div class="actions">
     <button class="refresh-btn" (click)="refreshInvoices()">🔄 Actualizar</button>
+    <button (click)="goToAddInvoice()" class="btn btn-agregar">➕ Agregar Factura</button>
+    <button class="btn btn-danger logout-btn" (click)="logout()">🚪 Cerrar Sesión</button>
   </div>
-  <button class="btn btn-danger" (click)="logout()">
-    🚪 Cerrar Sesión
-  </button>
-  
 
+  <!-- Listado de Facturas -->
   <div *ngIf="filteredInvoices.length > 0; else noInvoices">
     <div
       *ngFor="let invoice of filteredInvoices"
       [ngClass]="{ 'invoice-issued': invoice.tipo === 'emitida', 'invoice-received': invoice.tipo === 'recibida' }"
       class="invoice-card"
     >
-    <button (click)="goToDetail(invoice)">📄 Ver Detalles</button>
+    <button (click)="goToDetail(invoice)" class="btn btn-ver-detalles">📄 Ver Detalles</button>
 
 
-
-
- 
-    
       <p><strong>🆔 ID:</strong> {{ invoice.id }}</p>
       <p><strong>📅 Fecha:</strong> {{ invoice.fecha }}</p>
       <p><strong>💵 Total:</strong> {{ invoice.total }} €</p>
-      <p><strong>📄 Tipo:</strong> <span class="badge" [ngClass]="{ 'badge-emitida': invoice.tipo === 'emitida', 'badge-recibida': invoice.tipo === 'recibida' }">
-        {{ invoice.tipo | titlecase }}
-
-      
-      </span></p>
+      <p>
+        <strong>📄 Tipo:</strong>
+        <span class="badge" [ngClass]="{ 'badge-emitida': invoice.tipo === 'emitida', 'badge-recibida': invoice.tipo === 'recibida' }">
+          {{ invoice.tipo | titlecase }}
+        </span>
+      </p>
 
       <div class="d-flex justify-content-between mt-3">
         <button class="btn btn-warning" (click)="goToEditInvoice(invoice)">✏️ Editar</button>
-
-        <button (click)="deleteInvoice(invoice.id, invoice.tipo)" class="btn btn-danger">
-          🗑️ Eliminar
-        </button>
-        
-        
+        <button (click)="deleteInvoice(invoice.id, invoice.tipo)" class="btn btn-danger">🗑️ Eliminar</button>
       </div>
     </div>
   </div>
