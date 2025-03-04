@@ -1,0 +1,104 @@
+/* Asegurar que el formulario esté centrado completamente */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Fondo gris claro */
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Contenedor que ocupa toda la pantalla y centra el formulario */
+  .fullscreen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centrado vertical */
+    width: 100%;
+  }
+  
+  /* Contenedor del formulario */
+  .container {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Títulos con fuente elegante */
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    font-weight: bold;
+    font-family: 'Lora', serif; /* Fuente elegante */
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos de las etiquetas */
+  label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #555;
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  
+  /* Campos de entrada */
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
+  /* Botones */
+  .btn {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+  }
+  
+  /* Botón principal */
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Botón secundario */
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  /* Espaciado de botones */
+  .text-center {
+    margin-top: 15px;
+  }
+  

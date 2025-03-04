@@ -6,12 +6,12 @@ body {
 
 /* Título principal */
 h2 {
-  font-size: 2.5rem;
+  font-size: 2.8em;
   color: #333;
   text-align: center;
   font-weight: 700;
   font-family: 'Lora', serif; /* Fuente elegante */
-  margin-bottom: 20px;
+  margin-bottom: 10%;
 }
 
 /* Contenedor principal */
@@ -27,6 +27,7 @@ h2 {
   color: black;
   border-radius: 8px; /* Bordes redondeados */
   border: none;
+  
 }
 
 .btn-emitidas {
@@ -48,8 +49,8 @@ h2 {
   display: flex;
   justify-content: space-between; /* Alinea los botones en la misma fila */
   align-items: center;
-  margin-top: 15px; /* Ajuste para bajar los botones ligeramente */
-  margin-bottom: 25px;
+  margin-top: 35px; /* Ajuste para bajar los botones ligeramente */
+  margin-bottom: 35px;
   padding: 0 10px;
 }
 

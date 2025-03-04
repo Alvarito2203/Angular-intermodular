@@ -1,40 +1,47 @@
-<div class="container mt-5">
-    <h2 class="text-center">Agregar Nueva Factura</h2>
-    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+<div class="edit-invoice-container">
+  <div class="card">
+    <h2 class="title">📄 Agregar Nueva Factura</h2>
+
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="form">
       <div class="form-group">
-        <label>Fecha</label>
-        <input type="date" class="form-control" formControlName="fecha" />
+        <label>📅 Fecha</label>
+        <input type="date" formControlName="fecha" />
       </div>
+
       <div class="form-group">
-        <label>Emisor</label>
-        <input type="text" class="form-control" formControlName="emisor" />
+        <label>🏢 Emisor</label>
+        <input type="text" formControlName="emisor" />
       </div>
+
       <div class="form-group">
-        <label>Receptor</label>
-        <input type="text" class="form-control" formControlName="receptor" />
+        <label>📥 Receptor</label>
+        <input type="text" formControlName="receptor" />
       </div>
+
       <div class="form-group">
-        <label>Base Imponible</label>
-        <input type="number" class="form-control" formControlName="baseImponible" />
+        <label>💵 Base Imponible (€)</label>
+        <input type="number" formControlName="baseImponible" />
       </div>
+
       <div class="form-group">
-        <label for="iva">IVA (%)</label>
-        <select id="iva" class="form-control" formControlName="iva">
+        <label>📈 IVA (%)</label>
+        <select formControlName="iva">
           <option value="0">0%</option>
           <option value="4">4%</option>
           <option value="10">10%</option>
           <option value="21">21%</option>
         </select>
       </div>
-      
+
       <div class="form-group">
-        <label>Tipo</label>
-        <select class="form-control" formControlName="tipo">
+        <label>📄 Tipo</label>
+        <select formControlName="tipo">
           <option value="emitida">Emitida</option>
           <option value="recibida">Recibida</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-success w-100 mt-4">Agregar Factura</button>
+
+      <button class="save-btn" type="submit">➕ Agregar Factura</button>
     </form>
   </div>
-  
+</div>

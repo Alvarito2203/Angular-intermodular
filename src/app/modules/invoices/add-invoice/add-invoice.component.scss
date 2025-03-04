@@ -1,0 +1,70 @@
+/* Centrado y diseño similar al de editar factura */
+.edit-invoice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* Tarjeta del formulario */
+  .card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Título estilizado */
+  .title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Organización de los campos */
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  /* Campos de entrada */
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Botón "Agregar Factura" */
+  .save-btn {
+    background-color:  #41acf4 !important;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .save-btn:hover {
+    background-color:  #41acf4 !important;
+  }
+  
