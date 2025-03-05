@@ -1,3 +1,5 @@
+//servicios para la autentificación desde firebase
+
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -7,39 +9,39 @@ export class AuthService {
 
   constructor(private auth: Auth, private router: Router) {}
 
-  // 🔑 Función para iniciar sesión
+  // Función para iniciar sesión
   async login(email: string, password: string) {
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
       alert('Inicio de sesión exitoso.');
-      this.router.navigate(['/invoices']);  // Redirige tras iniciar sesión
+      this.router.navigate(['/invoices']);  // Manda tras iniciar sesión a la pantalla 
     } catch (error: any) {
       console.error('Error al iniciar sesión:', error);
       alert('Error: ' + error.message);
     }
   }
 
-  // 🔑 Función para registrar usuarios
+  // Función para registrar usuarios
   async register(email: string, password: string) {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       alert('Registro exitoso. Ahora puedes iniciar sesión.');
-      this.router.navigate(['/login']);  // ✅ Redirige al login tras registrarse
+      this.router.navigate(['/login']);  // Lleva al login tras registrarse para iniciar sesion
     } catch (error: any) {
       console.error('Error al registrar:', error.message);
-      alert('Error al registrar: ' + error.message);  // ✅ Muestra el error al usuario
+      alert('Error al registrar: ' + error.message);  // error por si acaso
     }
   }
 
-  // 🔑 Función para cerrar sesión
+  // Función para cerrar sesión
   async logout() {
     await signOut(this.auth);
     alert('Sesión cerrada.');
     this.router.navigate(['/login']);
   }
-  // 🔍 Método para verificar si hay usuario autenticado
+  //Método para verificar si hay usuario autenticado
   isAuthenticated(): boolean {
-    return this.auth.currentUser !== null;  // ✅ Verificar si el usuario está autenticado
+    return this.auth.currentUser !== null;  
   }
   
   

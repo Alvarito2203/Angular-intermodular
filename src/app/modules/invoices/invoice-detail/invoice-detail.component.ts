@@ -30,14 +30,14 @@ export class InvoiceDetailComponent implements OnInit {
           return;
         }
 
-        console.log(`Factura seleccionada - ID: ${id} Tipo: ${tipo}`);
+       
 
         this.invoiceService.getInvoiceById(tipo, id).subscribe(invoice => {
           if (invoice) {
             console.log("✅ Factura encontrada:", invoice);
             this.invoiceData = invoice;
           } else {
-            console.error("❌ No se encontró la factura.");
+           
           }
           this.loading = false;
         });
