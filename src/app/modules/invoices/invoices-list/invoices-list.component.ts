@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // ✅ Importar CommonModule
+import { CommonModule } from '@angular/common'; //  Importar CommonModule
 import { InvoiceService } from '../../../services/invoice.service';
 import { Router, RouterModule } from '@angular/router';
 import { getAuth, signOut } from 'firebase/auth';
@@ -10,7 +10,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './invoices-list.component.html',
   styleUrls: ['./invoices-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule], // ✅ Necesario para *ngFor y *ngIf
+  imports: [CommonModule, RouterModule], // Necesario para *ngFor y *ngIf
 })
 export class InvoicesListComponent implements OnInit {
   invoices: any[] = [];
@@ -19,11 +19,11 @@ export class InvoicesListComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.showAllInvoices();
+    this.showAllInvoices(); //para que abra con todas las facturas
   } 
 
   showAllInvoices() {
-    this.invoiceService.getAllInvoices().subscribe((invoices) => {
+    this.invoiceService.getAllInvoices().subscribe((invoices) => { //suscribe para que se actualice
       this.filteredInvoices = invoices;
     });
   }

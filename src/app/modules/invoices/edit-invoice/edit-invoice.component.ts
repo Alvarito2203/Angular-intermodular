@@ -65,7 +65,7 @@ export class EditInvoiceComponent implements OnInit {
       total = baseImponible - baseImponible * ivaDecimal; // Para recibidas
     }
 
-    this.invoiceForm.patchValue({ total: parseFloat(total.toFixed(2)) }, { emitEvent: false });
+    this.invoiceForm.patchValue({ total: parseFloat(total.toFixed(2)) }, { emitEvent: false }); //parseFloat sirve para convertir un string a un número y el 2 para redondear a 2 decimales
   }
 
   onSubmit(): void {

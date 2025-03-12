@@ -6,7 +6,7 @@ import { getDoc, updateDoc } from '@firebase/firestore';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable({
+@Injectable({   
   providedIn: 'root',
 })
 export class InvoiceService {
@@ -19,7 +19,7 @@ export class InvoiceService {
     const receivedInvoicesRef = collection(this.firestore, 'facturas_recibidas'); 
     const issuedInvoices$ = collectionData(issuedInvoicesRef, { idField: 'id' }); //obtiene por id, issued es emitida
     const receivedInvoices$ = collectionData(receivedInvoicesRef, { idField: 'id' }); //obtiene por id received es recibida
-    return combineLatest([issuedInvoices$, receivedInvoices$]).pipe(
+    return combineLatest([issuedInvoices$, receivedInvoices$]).pipe( 
       map(([issued, received]) => [...issued, ...received])   //con el map se mezcvclna las colecciones
     );
   }
@@ -60,7 +60,7 @@ export class InvoiceService {
   getInvoiceById(tipo: string, id: string): Observable<any> {
     if (!tipo || !id) {
       console.error("⚠️ Error: Tipo o ID no proporcionados."); // error por si no va
-      return new Observable(); // Observable vacío para evitar errores
+      return new Observable(); // Observable vacío para evitar errores 
     }
 
     const collectionName = tipo === 'emitida' ? 'facturas_emitidas' : 'facturas_recibidas'; 
@@ -71,5 +71,4 @@ export class InvoiceService {
     return docData(invoiceDocRef); // imprime nuestros datos de la factura que hemos pinchao
   }
 }
-
 
