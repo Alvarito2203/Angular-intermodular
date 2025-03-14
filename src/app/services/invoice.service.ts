@@ -25,7 +25,7 @@ export class InvoiceService {
   }
   
   // Actualiza una factura en la base de datos según su tipo 
-  updateInvoice(id: string, updatedData: any): Promise<void> {
+  updateInvoice(id: string, updatedData: any): Promise<void> { 
     const collectionName = updatedData.tipo === 'emitida' ? 'facturas_emitidas' : 'facturas_recibidas'; 
     const invoiceRef = doc(this.firestore, `${collectionName}/${id}`); // Crea una referenci  al documento correcto en Firebase
     return updateDoc(invoiceRef, updatedData); // Actualiza de nuevo
